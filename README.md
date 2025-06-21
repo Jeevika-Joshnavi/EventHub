@@ -16,3 +16,7 @@ https://github.com/user-attachments/assets/048266d2-a645-444a-ba01-ad2352b3921d
 ### Backend:
 - PHP 
 - MySQL 
+
+### Done by:
+- Joshnavi Pokala
+- Jeevika Iniyarajan
