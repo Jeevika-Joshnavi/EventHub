@@ -4,13 +4,15 @@ Admins can easily create, manage, and update event listings in real-time. Design
 Perfect for colleges, clubs, or communities to handle all event activities in one place.
 
 
-
-
-
-
 # Website preview
+https://github.com/user-attachments/assets/048266d2-a645-444a-ba01-ad2352b3921d
 
-<video width="100%" controls>
-  <source src="demo(2).mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+# Tech Stack
+### Frontend:
+- HTML 
+- CSS 
+- JavaScript 
+
+### Backend:
+- PHP 
+- MySQL 
