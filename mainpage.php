@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -169,6 +169,46 @@
             max-width: 800px;
             margin: 0 auto;
         }
+        .album-section {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .album-title {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .album-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .album-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .album-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
 
         /* Footer */
         footer {
@@ -317,6 +357,14 @@
             entertainment, and the power of shared experiences.
         </p>
     </section>
+    <!-- Event Album Section -->
+    <section class="album-section">
+        <h2 class="album-title">Event Album</h2>
+        <p class="album-description">
+            Take a look at the spectacular events conducted in partnership with EventHub
+        </p>
+        <a href="event-gallery.php" class="album-link" onclick="handleAlbumClick()">View Event Gallery</a>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -430,6 +478,9 @@
 
         function handleAdminClick() {
              window.location.href = 'Admin.html';
+        }
+        function handleAlbumClick() {
+            window.location.href = 'Eventgallery.html';
         }
 </script>
 </body>
