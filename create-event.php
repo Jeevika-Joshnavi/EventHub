@@ -7,13 +7,12 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $event_date = $_POST['event_date'];
 
-    // Get admin ID from session (ensure it's stored at login)
+    // Get admin ID
     $stmt = $conn->prepare("SELECT id FROM admins WHERE email = ?");
     $stmt->bind_param("s", $_SESSION['email']);
     $stmt->execute();
@@ -21,10 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = $admin_result->fetch_assoc();
     $admin_id = $admin['id'];
 
-    // Insert into events
-    $stmt = $conn->prepare("INSERT INTO events (title, description, event_date, created_by) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sssi", $title, $description, $event_date, $admin_id);
-    
+    // Image upload
+    $image_name = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $image_tmp = $_FILES['image']['tmp_name'];
+        $image_name = basename($_FILES['image']['name']);
+        $upload_dir = 'uploads/';
+
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
+        move_uploaded_file($image_tmp, $upload_dir . $image_name);
+    }
+
+    // Insert event
+    $stmt = $conn->prepare("INSERT INTO events (title, description, event_date, created_by, image) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssis", $title, $description, $event_date, $admin_id, $image_name);
+
     if ($stmt->execute()) {
         header("Location: view-events.php?success=1");
         exit();
@@ -33,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -146,10 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          <a  href="admin_page.php" class="back">← Back to Dashboard</a>
     <h2>Create New Event</h2>
     <?php if (isset($error)) echo "<p class='error-message'>$error</p>"; ?>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Event Title" required><br><br>
         <textarea name="description" placeholder="Event Description" required></textarea><br><br>
         <input type="date" name="event_date" required><br><br>
+        <!-- Image upload -->
+        <input type="file" name="image" accept="image/*" required><br>
+
         <button type="submit">Create Event</button>
     </form>
     
