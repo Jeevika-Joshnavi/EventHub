@@ -96,7 +96,7 @@ $user_id = $_SESSION['user_id'];
     <hr>
 
     <?php
-    $sql = "SELECT e.title, e.description, e.event_date
+    $sql = "SELECT e.title, e.description, e.event_date, e.image
             FROM events e
             JOIN registrations r ON e.id = r.event_id
             WHERE r.user_id = ?";
@@ -109,6 +109,10 @@ $user_id = $_SESSION['user_id'];
         while ($event = $res->fetch_assoc()) {
             echo "<div style='margin-bottom:20px'>";
             echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
+            if (!empty($event['image'])) {
+    echo "<img src='uploads/" . htmlspecialchars($event['image']) . "' alt='Event Image' style='max-width: 100%; height: auto; border-radius: 10px; margin: 10px 0;'>";
+}
+
             echo "<p>" . htmlspecialchars($event['description']) . "</p>";
             echo "<p>Date: " . $event['event_date'] . "</p>";
             echo "</div><hr>";
