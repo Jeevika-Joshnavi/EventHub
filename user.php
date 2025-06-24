@@ -146,16 +146,26 @@ function isActiveForm($formName, $activeForm){
                 <input type="password" name="password" placeholder="password" required>
                 <button type="submit" name="login"> Login</button>
                 <p> Don't have an account? <a href="#" onclick="showForm('ureg')"> Register </a></p>
+                <p><a href="forgot-password.php">Forgot Password?</a></p>
             </form>
         </div>
 
-        <div class="formbox" <?= isActiveForm('register', $activeForm);?> id="ureg">
+        <div class="formbox <?= isActiveForm('register', $activeForm);?>" id="ureg">
             <form action="login_register.php" method="post">
                 <h2> REGISTER</h2>
                 <?= showError($errors['register']);?>
                 <input type="name" name="name" placeholder="name">
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="password" required>
+                <select name="secret_question" required>
+    <option value="">Select a secret question</option>
+    <option value="pet">What is your pet’s name?</option>
+    <option value="school">What is your first school?</option>
+    <option value="color">What is your favorite color?</option>
+</select><br><br>
+
+<input type="text" name="secret_answer" placeholder="Answer to secret question" required><br><br>
+
                 <button type="submit" name="register"> Register</button>
                 <p> Already have an account? <a href="#" onclick="showForm('ulogin')"> Login </a></p>
             </form>
