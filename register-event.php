@@ -111,6 +111,14 @@ $user_id = $_SESSION['user_id'];
                 padding: 1.5rem;
             }
         }
+        .event img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
     </style>
 </head>
 <body>
@@ -131,9 +139,16 @@ $user_id = $_SESSION['user_id'];
             $check = $conn->query("SELECT * FROM registrations WHERE user_id = $user_id AND event_id = $event_id");
             $already_registered = $check->num_rows > 0;
 
-            echo "<div class='event'";
-            echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
-            echo "<p>" . htmlspecialchars($event['description']) . "</p>";
+           echo "<div class='event'>";
+echo "<h3>" . htmlspecialchars($event['title']) . "</h3>";
+
+// Display image if present
+if (!empty($event['image'])) {
+    echo "<img src='uploads/" . htmlspecialchars($event['image']) . "' alt='Event Image' style='max-width: 100%; height: auto; margin: 10px 0; border-radius: 10px;'>";
+}
+
+echo "<p>" . htmlspecialchars($event['description']) . "</p>";
+
             echo "<p>Date: " . $event['event_date'] . "</p>";
 
             if ($already_registered) {
