@@ -110,6 +110,14 @@ if (!isset($_SESSION['email'])) {
 .back:hover {
     color: #ddd;
 }
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
 
     </style>
 </head>
@@ -124,9 +132,17 @@ if (!isset($_SESSION['email'])) {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "<div style='margin-bottom:20px'>";
-            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
-            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+           echo "<div class='event'>";
+
+echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+
+// Check if image exists
+if (!empty($row['image'])) {
+    echo "<img src='uploads/" . htmlspecialchars($row['image']) . "' alt='Event Image' style='max-width: 100%; height: auto; margin: 10px 0; border-radius: 10px;'>";
+}
+
+echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+
             echo "<p>Date: " . $row['event_date'] . "</p>";
             echo "<a href='edit_event.php?id=" . $row['id'] . "'>Edit</a> | ";
             echo "<a href='delete_event.php?id=" . $row['id'] . "' onclick=\"return confirm('Are you sure?');\">Delete</a> | ";
